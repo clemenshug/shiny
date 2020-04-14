@@ -606,10 +606,12 @@ updateSelectInput <- function(session, inputId, label = NULL, choices = NULL,
 #'   the select options dynamically on searching, instead of writing all
 #'   `choices` into the page at once (i.e., only use the client-side
 #'   version of \pkg{selectize.js})
+#' @param callback R function that processes the client request when input
+#'   is changed
 #' @export
 updateSelectizeInput <- function(session, inputId, label = NULL, choices = NULL,
                                  selected = NULL, options = list(),
-                                 server = FALSE) {
+                                 server = FALSE, callback = selectizeJSON) {
   if (length(options)) {
     res <- checkAsIs(options)
     cfg <- tags$script(
@@ -715,7 +717,7 @@ updateSelectizeInput <- function(session, inputId, label = NULL, choices = NULL,
   message <- dropNulls(list(
     label = label,
     value = value,
-    url = session$registerDataObj(inputId, choices, selectizeJSON)
+    url = session$registerDataObj(inputId, choices, callback)
   ))
   session$sendInputMessage(inputId, message)
 }
