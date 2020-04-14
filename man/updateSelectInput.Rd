@@ -22,7 +22,8 @@ updateSelectizeInput(
   choices = NULL,
   selected = NULL,
   options = list(),
-  server = FALSE
+  server = FALSE,
+  callback = selectizeJSON
 )
 
 updateVarSelectInput(
@@ -71,6 +72,9 @@ for details).}
 the select options dynamically on searching, instead of writing all
 \code{choices} into the page at once (i.e., only use the client-side
 version of \pkg{selectize.js})}
+
+\item{callback}{R function that processes the client request when input
+is changed}
 
 \item{data}{A data frame. Used to retrieve the column names as choices for a \code{\link[=selectInput]{selectInput()}}}
 }
